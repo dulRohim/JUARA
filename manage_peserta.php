@@ -8,6 +8,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+    <link href="css/twitter-typeahead.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
@@ -17,7 +18,7 @@
   </div>
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
-            <h2>Data Kontingen</h2>
+            <h2>Data Peserta</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="index.php">Home</a>
@@ -26,7 +27,7 @@
                     <strong>Manage</strong>
                 </li>
                 <li class="active">
-                    <strong>Manage Kontingen</strong>
+                    <strong>Manage Peserta</strong>
                 </li>
             </ol>
         </div>
@@ -36,11 +37,11 @@
           <div class="col-lg-12">
           <div class="ibox float-e-margins">
               <div class="ibox-title">
-                  <h5>Input Data Kontingen</h5>
+                  <h5>Input Data Peserta</h5>
               </div>
               <div class="ibox-content">
                   <p>
-                    Silahkan Input Data Kontingen Melalui Tombol Berikut ini.
+                    Silahkan Input Data Peserta Melalui Tombol Berikut ini.
                   </p>
 
                   <div class="text-center">
@@ -54,49 +55,54 @@
             <div class="col-lg-12">
                           <div class="ibox float-e-margins">
                               <div class="ibox-title">
-                                  <h5>Data Kontingen</h5>
-
+                                  <h5>Data Peserta</h5>
                               </div>
                               <div class="ibox-content">
+                                <div class="table-responsive">
+                                  <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                  <thead>
+                                  <tr>
+                                      <th width="30px">No</th>
+                                      <th>Nama Kelas</th>
+                                      <th>Juara</th>
+                                      <th>Nama Peserta</th>
+                                      <th>Nama Kontingen</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  <?php
+                                    $sql = "SELECT * FROM  datapeserta dp, datakontingen dkg, datakelas dk
+                                    WHERE dp.id_kontingen=dkg.id_kontingen
+                                    AND dp.id_kelas=dk.id_kelas
+                                    ORDER BY id_peserta;";
+                                    $hasil = mysqli_query($con, $sql);
+                                    $no = 1;
+                                    while ($cetak = mysqli_fetch_array($hasil)){
+                                    echo "<tr>";
+                                    echo "<td>".$no."</td>";
+                                    echo "<td>".$cetak['nama_kelas']."</td>";
+                                    echo "<td>".$cetak['juara']."</td>";
+                                    echo "<td>".$cetak['nama_peserta']."</td>";
+                                    echo "<td>".$cetak['nama_kontingen']."</td>";
+                                    echo "</tr>";
+                                    $no++;}
+                                  ?>
 
-                              <div class="table-responsive">
-                              <table class="table table-striped table-bordered table-hover dataTables-example" >
-                              <thead>
-                              <tr>
-                                  <th width="30px">No</th>
-                                  <th>Nama Kontingen</th>
-                                  <th>Nama Official</th>
-                                  <th>No Telepon</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              <?php
-                                $sql = "SELECT * FROM datakontingen ORDER BY id_kontingen;";
-                                $hasil = mysqli_query($con, $sql);
-                                $no = 1;
-                                while ($cetak = mysqli_fetch_array($hasil)){
-                                echo "<tr>";
-                                echo "<td>".$no."</td>";
-                                echo "<td>".$cetak['nama_kontingen']."</td>";
-                                echo "<td>".$cetak['nama_official']."</td>";
-                                echo "<td>".$cetak['nomor_hp']."</td>";
-                                echo "</tr>";
-                                $no++;}
-                              ?>
-
-                              </tbody>
-                              <tfoot>
-                              <tr>
-                                <th>No</th>
-                                <th>Kontingen</th>
-                                <th>Action</th>
-                              </tr>
-                              </tfoot>
-                              </table>
-                                  </div>
+                                  </tbody>
+                                  <tfoot>
+                                  <tr>
+                                    <th>No</th>
+                                    <th>Kontingen</th>
+                                    <th>Action</th>
+                                  </tr>
+                                  </tfoot>
+                                  </table>
                                 </div>
                               </div>
-                            </div></div></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 
         <div class="footer">
             <div class="pull-right">
@@ -113,18 +119,28 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title">Input Kontingen</h4>
+                        <h4 class="modal-title">Input Peserta</h4>
                     </div>
                     <div class="modal-body">
                       <form method="POST" class="form-horizontal" action="#">
+                          <div class="form-group"><label class="col-sm-2 control-label">Nama Peserta</label>
+                            <div class="col-sm-10"><input type="text" class="form-control" name="nama_peserta" required></div>
+                          </div>
+                          <div class="form-group"><label class="col-sm-2 control-label">Juara</label>
+                            <div class="col-sm-10"><input type="radio" name="juara" value="1"> 1</div>
+                          </div>
+                          <div class="form-group"><label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-10"><input type="radio" name="juara" value="2"> 2</div>
+                          </div>
+                          <div class="form-group"><label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-10"><input type="radio" name="juara" value="3"> 3</div>
+                          </div>
+
+                          <div class="form-group"><label class="col-sm-2 control-label">Nama Kelas</label>
+                            <div class="col-sm-10"><input type="text" class="form-control" name="nama_kelas"></div>
+                          </div>
                           <div class="form-group"><label class="col-sm-2 control-label">Nama Kontingen</label>
-                            <div class="col-sm-10"><input type="text" class="form-control" name="nama_kontingen" required></div>
-                          </div>
-                          <div class="form-group"><label class="col-sm-2 control-label">Nama Official</label>
-                            <div class="col-sm-10"><input type="text" class="form-control" name="nama_official"></div>
-                          </div>
-                          <div class="form-group"><label class="col-sm-2 control-label">Nomor Telepon</label>
-                            <div class="col-sm-10"><input type="text" class="form-control" name="nomor_hp" maxlength="13" id="edit1"></div>
+                            <div class="col-sm-10"><input type="text" id="kontingen_pilih" class="form-control" name="nama_kontingen" maxlength="13" autocomplete="off"></div>
                           </div>
                           <div class="form-group">
                               <div class="col-sm-4 col-sm-offset-2">
@@ -141,6 +157,7 @@
     <!-- Mainly scripts -->
     <script src="js/jquery-2.1.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap3-typeahead.min.js"></script>
     <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
     <script src="js/plugins/dataTables/datatables.min.js"></script>
@@ -152,19 +169,8 @@
     <!-- jQuery UI -->
     <script src="js/plugins/jquery-ui/jquery-ui.min.js"></script>
     <script>
+    var kontingen_data   = [];
     $(document).ready(function(){
-      function validateNumber(event) {
-        var key = window.event ? event.keyCode : event.which;
-        if (event.keyCode === 8 || event.keyCode === 46) {
-            return true;
-        } else if ( key < 48 || key > 57 ) {
-            return false;
-        } else {
-            return true;
-        }
-    };
-    $('[id^=edit]').keypress(validateNumber);
-
         $('.dataTables-example').DataTable({
             dom: '<"html5buttons"B>lTfgitp',
             buttons: [
@@ -188,18 +194,30 @@
         });
 
         /* Init DataTables */
-        var oTable = $('#editable').DataTable();
-        });
+      <?php
+        $sql = "SELECT * FROM datakontingen;";
+        $hasil = mysqli_query($con, $sql);
+        $no = 1;
+        while ($cetak = mysqli_fetch_array($hasil)){
+         echo "kontingen_data.push('".$cetak['nama_kontingen']."');";
+        $no++;}
+         ?>
+      $('#kontingen_pilih').typeahead({
+         local: kontingen_data
+       });
+
+});
     </script>
 </body>
 </html>
 <?php
   if(isset($_POST['submit'])){
+    $nama_peserta = $_POST['nama_peserta'];
+    $juara = $_POST['juara'];
+    $nama_kelas = $_POST['nama_kelas'];
     $nama_kontingen = $_POST['nama_kontingen'];
-    $nama_official = $_POST['nama_official'];
-    $nomor_hp = $_POST['nomor_hp'];
-    $sql = "INSERT INTO datakontingen(nama_kontingen, nama_official, nomor_hp)
-    VALUES ('$nama_kontingen', '$nama_official', '$nomor_hp');";
+    $sql = "INSERT INTO datapeserta(nama_peserta, juara, id_kelas, id_kontingen)
+    VALUES ('$nama_peserta', '$juara', '$nama_kelas', '$nama_kontingen');";
     $hasil = mysqli_query($con, $sql);
     if(!$hasil){
     printf("Gagal mengisi tabel kontingen: %s\n",

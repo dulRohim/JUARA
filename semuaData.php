@@ -21,7 +21,7 @@
               <h2>Semua Data</h2>
               <ol class="breadcrumb">
                   <li>
-                      <a href="index.html">Home</a>
+                      <a href="index.php">Home</a>
                   </li>
                   <li class="active">
                       <strong>Semua Data</strong>
@@ -63,6 +63,15 @@
                           <td class="center">X</td>
                         </tr>
                       </tbody>
+                      <tfoot>
+                      <tr>
+                        <th>No</th>
+                        <th>Kontingen</th>
+                        <th>Action</th>
+                        <th></th>
+                        <th></th>
+                      </tr>
+                      </tfoot>
                     </table>
                   </div>
                 </div>

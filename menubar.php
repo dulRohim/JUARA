@@ -16,10 +16,10 @@
                     SKC
                 </div>
             </li>
-            <li class="active">
+            <li>
                 <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li class="active"><a href="index.php">Dashboard</a></li>
+                    <li><a href="index.php">Dashboard</a></li>
                     <li><a href="semuaData.php">Semua Data</a></li>
                 </ul>
             </li>
@@ -27,8 +27,8 @@
               <a href="#"><i class="fa fa-laptop"></i> <span class="nav-label">Manage</span><span class="fa arrow"></span></a>
               <ul class="nav nav-second-level collapse">
                 <li><a href="manage_kontingen.php">Manage Kontingen</a></li>
-                <li><a href="#">Manage Peserta</a></li>
-                <li><a href="#">Manage Kelas</a></li>
+                <li><a href="manage_peserta.php">Manage Peserta</a></li>
+                <li><a href="manage_kelas.php">Manage Kelas</a></li>
               </ul>
             </li>
             <li>
